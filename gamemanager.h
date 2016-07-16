@@ -12,19 +12,25 @@ using namespace std;
 class GameManager
 {
 private:
+    bool playing;
     int width, length;
     int focusX, focusY;
+    char left, right, up, down, confirm, pause, quit;
     vector<vector<int>> board;
     string cache;
 
 public:
     GameManager(int max_x, int max_y)
     {
+        playing = true;
         srand(time(NULL));
         width = max_x;
         length = max_y;
         focusX = width / 2;
         focusY = length / 2;
+
+        up = 'w'; left = 'a'; right = 'd'; down = 's';
+        confirm = ' '; pause = 'p'; quit = 'q';
 
         board.resize(max_x);
         for (int x = 0; x < max_x; x++)
@@ -95,9 +101,64 @@ public:
 
         if (tmp != cache)
         {
+            system("clear");
             cout << tmp;
             cache = tmp;
         }
+
+
+    }
+
+    void Input()
+    {
+        if (kbhit())
+        {
+            char ch = cin.get();
+
+            if (ch == left)
+            {
+                if (focusX > 0)
+                    focusX--;
+            }
+
+            else if (ch == right)
+            {
+                if (focusX < width - 1)
+                    focusX++;
+            }
+
+            else if (ch == up)
+            {
+                if (focusY > 0)
+                    focusY--;
+            }
+
+            else if (ch == down)
+            {
+                if (focusY < length - 1)
+                    focusY++;
+            }
+
+            // else if (ch == confirm)
+
+            // else if (ch == pause)
+
+            else if (ch == quit)
+            {
+                playing = false;
+            }
+
+        }
+    }
+
+    void Start()
+    {
+        while (playing)
+        {
+            Print();
+            Input();
+        }
+        cout << endl;
     }
 };
 

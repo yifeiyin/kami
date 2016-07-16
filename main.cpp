@@ -10,6 +10,6 @@ using namespace std;
 int main()
 {
     GameManager game(10,10);
-    game.Print();
+    game.Start();
     return 0;
 }
