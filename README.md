@@ -2,7 +2,7 @@
 
 This is a simple game, inspiration from KAMI, a game on steam.
 
-KAMI on Steam: http://store.steampowered.com/app/272040
+[KAMI on Steam](http://store.steampowered.com/app/272040)
 
 
 ###Environment
