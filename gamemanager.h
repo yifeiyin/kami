@@ -6,6 +6,7 @@
 #include <string>
 #include "kbhit.h"
 #include "colorful.h"
+#include "level.h"
 
 using namespace std;
 
@@ -16,6 +17,7 @@ private:
     int width, length;
     int focusX, focusY;
     char left, right, up, down, confirm, pause, quit;
+    Level level;
     vector<vector<int>> board;
     string cache;
 
@@ -24,23 +26,25 @@ public:
     {
         playing = true;
         srand(time(NULL));
-        width = max_x;
-        length = max_y;
-        focusX = width / 2;
-        focusY = length / 2;
 
         up = 'w'; left = 'a'; right = 'd'; down = 's';
         confirm = ' '; pause = 'p'; quit = 'q';
 
-        board.resize(max_x);
-        for (int x = 0; x < max_x; x++)
-            board[x].resize(max_y);
-
-        for (int x = 0; x < width; x++)
-            for (int y = 0; y < length; y++)
-                board[x][y] = rand()%6;
-
         cache = "";
+
+        level = Level(max_x, max_y);
+
+        Load();
+    }
+
+    void Load()
+    {
+        width = level.GetWidth();
+        length = level.GetLength();
+        focusX = width / 2;
+        focusY = length / 2;
+
+        board = level.GetBoard();
     }
 
     void Print()
@@ -67,13 +71,13 @@ public:
             {
                 switch (board[x][y/2])
                 {
-                case 0: tmp += COLORFUL::bGRAY; break;
+                case 0: tmp += COLORFUL::bORANGE; break;
                 case 1: tmp += COLORFUL::bPURPLE; break;
                 case 2: tmp += COLORFUL::bRED; break;
                 case 3: tmp += COLORFUL::bBLUE; break;
                 case 4: tmp += COLORFUL::bBLUE_l; break;
                 case 5: tmp += COLORFUL::bGREEN; break;
-                default: tmp += COLORFUL::bORANGE;
+                default: tmp += COLORFUL::bGRAY;
                 }
                 if (x == focusX && y/2 == focusY)
                 {

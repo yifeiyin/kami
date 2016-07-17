@@ -14,4 +14,5 @@ SOURCES += main.cpp
 HEADERS += \
     colorful.h \
     kbhit.h \
-    gamemanager.h
+    gamemanager.h \
+    level.h
