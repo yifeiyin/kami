@@ -123,7 +123,7 @@ public:
 
     void _Fill_Recursion(int x, int y, int original, int final)
     {
-        if (board[x][y] != original)
+        if (board[x][y] != original || board[x][y] == final)
                 return;
 
         board[x][y] = final;
