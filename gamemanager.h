@@ -32,7 +32,7 @@ public:
 
         cache = "";
 
-        level = Level(max_x, max_y);
+        level = Level (max_x, max_y);
 
         Load();
     }
@@ -109,8 +109,33 @@ public:
             cout << tmp;
             cache = tmp;
         }
+    }
 
+    bool Fill(int color)
+    {
+        if (color < 0 || color >= level.GetColorAmount())
+            return false;
 
+        _Fill_Recursion(focusX,focusY,board[focusX][focusY],color);
+
+        return true;
+    }
+
+    void _Fill_Recursion(int x, int y, int original, int final)
+    {
+        if (board[x][y] != original)
+                return;
+
+        board[x][y] = final;
+
+            if (x > 0)
+                _Fill_Recursion(x-1,y,original,final);
+            if (x < width - 1)
+                _Fill_Recursion(x+1,y,original,final);
+            if (y > 0)
+                _Fill_Recursion(x,y-1,original,final);
+            if (y < length - 1)
+                _Fill_Recursion(x,y+1,original,final);
     }
 
     void Input()
@@ -146,6 +171,15 @@ public:
             // else if (ch == confirm)
 
             // else if (ch == pause)
+
+            else if (ch == '0')
+                Fill(0);
+
+            else if (ch == '1')
+                Fill(1);
+
+            else if (ch == '2')
+                Fill(2);
 
             else if (ch == quit)
             {

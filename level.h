@@ -10,7 +10,7 @@ class Level
 private:
     int width, length;
     int color_amount;
-    int * color;
+    vector<int> color;
     vector<vector <int>> board;
 
 public:
@@ -25,7 +25,7 @@ public:
         length = max_y;
 
         color_amount = 3;
-        color = new int [color_amount];
+        color.resize(color_amount);
         for (int i = 0; i < color_amount; i++)
             color[i] = i;
 
@@ -37,8 +37,14 @@ public:
             for (int x = 0; x < width; x++)
                 for (int y = 0; y < length; y++)
                     board[x][y] = 0;
-
-
+    }
+    Level operator=(Level * level)
+    {
+//        Level tmp;
+        width = level->width;
+        length = level->length;
+        color_amount = level->color_amount;
+        return *this;
     }
 
     bool Generate()
